@@ -21,10 +21,16 @@ import { useState } from 'react';
 
 export default function App(){
   
-
+  var reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+  var reg2 = /^[0-9\b]+$/
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-
+  const [nombre,setNombre] =useState();
+  const [apellido,setApellido] =useState();
+  const [edad,setEdad] =useState();
+  const [mail,setMail] =useState();
+  const [textosal,setTextosal]=useState();
+  
 
 
 
@@ -39,30 +45,38 @@ export default function App(){
 
 
   return(
-    
     <View style={{marginLeft:45,justifyContent:"flex-start" }}>
       <View style={styles.dato}>
         <Text style={{marginRight:20,fontSize:20,}}>Nombre:</Text>
-        <TextInput        
+        <TextInput
           style={styles.TextInput1}
+          required
+          onChangeText={(nombre)=> setNombre(nombre)}
         />
       </View>
       <View style={styles.dato}>
         <Text style={{marginRight:20,fontSize:20,}}>Apellido:</Text>
-        <TextInput        
+        <TextInput  
+                
           style={styles.TextInput1}
+          required
+          onChangeText={(apellido)=> setApellido(apellido)}
         />
       </View> 
       <View style={styles.dato}>
         <Text style={{marginRight:47,fontSize:20,}}>Edad:</Text>
         <TextInput
           style={styles.TextInput2}
+          required
+          onChangeText={(edad)=> setEdad(edad)}
         />
       </View>
       <View style={styles.dato}>
         <Text style={{marginRight:54,fontSize:20,}}>Mail:</Text>
         <TextInput
           style={styles.TextInput3}
+          required
+          onChangeText={(mail)=> setMail(mail)}
         />
       </View>
       <View style={styles.dato}>  
@@ -74,12 +88,39 @@ export default function App(){
         />
         <Text style={{marginLeft:10,fontSize:16,color:"grey"}}>{isEnabled?"Mujer":"Hombre"}</Text>
       </View>
+      <View style={{width:300,marginTop: 30}}>
+        <Button
+          title= 'Enviar'
+          onPress={() =>
+            {
+              if(nombre === "" || apellido===""||edad===""||mail===""){
+                alert('por favor rellene todos los campos')
+              }else if (!mail.match(reg) || !edad.match(reg2)){
+                if(!mail.match(reg) && !edad.match(reg2)){
+                  alert('El mail tine que estar estandarizado y la edad tine que ser un numero')
+                }else if(!mail.match(reg)){
+                  alert('El mail tine que estar estandarizado')
+                }else{
+                  alert('La edad tine que ser un numero')
+                }
+              }else{
+                setTextosal( 'Mi nombre es '+nombre+' '+apellido+' con edad '+edad+' y mi mail es '+mail+' ,soy '+(isEnabled?"Mujer":"Hombre"))}
+
+              }
+            }
+            
+            
 
 
+        />
+      </View>
+
+      <Text>{textosal}</Text>
 
 
     </View>
-
+     
+     
 
 
     
