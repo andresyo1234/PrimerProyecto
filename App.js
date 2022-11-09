@@ -1,13 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
-import type {Node} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -16,102 +7,121 @@ import {
   Text,
   useColorScheme,
   View,
+  TextInput,
+  Button,
+  Image,
+  Switch,
 } from 'react-native';
+import { useState } from 'react';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 
-/* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
- * LTI update could not be added via codemod */
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
+
+
+
+
+export default function App(){
+  
+
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  return(
+    
+    <View style={{marginLeft:45,justifyContent:"flex-start" }}>
+      <View style={styles.dato}>
+        <Text style={{marginRight:20,fontSize:20,}}>Nombre:</Text>
+        <TextInput        
+          style={styles.TextInput1}
+        />
+      </View>
+      <View style={styles.dato}>
+        <Text style={{marginRight:20,fontSize:20,}}>Apellido:</Text>
+        <TextInput        
+          style={styles.TextInput1}
+        />
+      </View> 
+      <View style={styles.dato}>
+        <Text style={{marginRight:47,fontSize:20,}}>Edad:</Text>
+        <TextInput
+          style={styles.TextInput2}
+        />
+      </View>
+      <View style={styles.dato}>
+        <Text style={{marginRight:54,fontSize:20,}}>Mail:</Text>
+        <TextInput
+          style={styles.TextInput3}
+        />
+      </View>
+      <View style={styles.dato}>  
+        <Text style={{marginRight:54,fontSize:20,}}>Sexo:</Text>
+        <Switch
+          onValueChange={toggleSwitch}
+          value={isEnabled}
+          style={{transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }]}}
+        />
+        <Text style={{marginLeft:10,fontSize:16,color:"grey"}}>{isEnabled?"Mujer":"Hombre"}</Text>
+      </View>
+
+
+
+
     </View>
+
+
+
+    
   );
-};
-
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Editar <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="Mira a tu madre, Perra">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
+  
+}
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  TextInput1: {
+    borderColor: "gray",
+    height:"80%",
+    width:"40%",
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 10,
+    fontSize:20
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  TextInput2: {
+    borderColor: "gray",
+    height:"80%",
+    width:"20%",
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 10,
+    fontSize:20
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+  TextInput3: {
+    borderColor: "gray",
+    height:"80%",
+    width:"65%",
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 10,
+    fontSize:15
   },
-  highlight: {
-    fontWeight: '700',
+  dato: {
+    flexDirection:"row",
+    alignItems:'center',
+    marginTop:10
+  },
+  red: {
+    color: 'red',
   },
 });
 
-export default App;
