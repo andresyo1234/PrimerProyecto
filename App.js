@@ -25,11 +25,12 @@ export default function App(){
   var reg2 = /^[0-9\b]+$/
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-  const [nombre,setNombre] =useState();
-  const [apellido,setApellido] =useState();
-  const [edad,setEdad] =useState();
-  const [mail,setMail] =useState();
+  const [nombre,setNombre] =useState("");
+  const [apellido,setApellido] =useState("");
+  const [edad,setEdad] =useState("");
+  const [mail,setMail] =useState("");
   const [textosal,setTextosal]=useState();
+  const [enviado,setEnviado]=useState(false);
   
 
 
@@ -93,21 +94,30 @@ export default function App(){
           title= 'Enviar'
           onPress={() =>
             {
-              if(nombre === "" || apellido===""||edad===""||mail===""){
-                alert('por favor rellene todos los campos')
-              }else if (!mail.match(reg) || !edad.match(reg2)){
-                if(!mail.match(reg) && !edad.match(reg2)){
-                  alert('El mail tine que estar estandarizado y la edad tine que ser un numero')
-                }else if(!mail.match(reg)){
-                  alert('El mail tine que estar estandarizado')
-                }else{
-                  alert('La edad tine que ser un numero')
-                }
+              if(!enviado){
+                if(nombre === "" || apellido === "" || edad===""|| mail===""){
+                  alert('por favor rellene todos los campos')
+                }else {
+                  if (!mail.match(reg) || !edad.match(reg2)){
+                    if(!mail.match(reg) && !edad.match(reg2)){
+                      alert('El mail tine que estar estandarizado y la edad tine que ser un numero')
+                    }else if(!mail.match(reg)){
+                      alert('El mail tine que estar estandarizado')
+                    }else{
+                      alert('La edad tine que ser un numero')
+                    }
+                  }else{
+                    setTextosal( 'Mi nombre es '+nombre+' '+apellido+' con edad '+edad+' y mi mail es '+mail+' ,soy '+(isEnabled?"Mujer":"Hombre"))
+                    setEnviado(true)
+                    
+                  
+                  }           
+                } 
               }else{
-                setTextosal( 'Mi nombre es '+nombre+' '+apellido+' con edad '+edad+' y mi mail es '+mail+' ,soy '+(isEnabled?"Mujer":"Hombre"))}
-
+                alert('El formulario ya ha sido enviado, si quiere enviar otro recarge la app')
               }
             }
+          }
             
             
 
@@ -116,6 +126,13 @@ export default function App(){
       </View>
 
       <Text>{textosal}</Text>
+      <Image
+       source={require('./imgs/mondongo.jpg')}
+       style={{width:250, height:250,opacity:enviado?100:0 }}
+
+       
+      
+      />
 
 
     </View>
