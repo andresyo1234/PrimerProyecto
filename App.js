@@ -11,6 +11,7 @@ import {
   Button,
   Image,
   Switch,
+  Keyboard 
 } from 'react-native';
 import { useState } from 'react';
 
@@ -94,6 +95,7 @@ export default function App(){
           title= 'Enviar'
           onPress={() =>
             {
+              Keyboard.dismiss()
               if(!enviado){
                 if(nombre === "" || apellido === "" || edad===""|| mail===""){
                   alert('por favor rellene todos los campos')
@@ -125,7 +127,7 @@ export default function App(){
         />
       </View>
 
-      <Text>{textosal}</Text>
+      <Text style={styles.dato}>{textosal}</Text>
       <Image
        source={require('./imgs/mondongo.jpg')}
        style={{width:250, height:250,opacity:enviado?100:0 }}
